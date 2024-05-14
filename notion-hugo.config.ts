@@ -3,27 +3,7 @@ import { UserConfig } from "./src/config"
 const userConfig: UserConfig = {
     mount: {
         manual: false,
-        page_url: 'https://www.notion.so/89a8df7eb4f14efbbd7600b1b87f58b9?pvs=4',
-        pages: [
-            // {
-            //     page_id: '<page_id>',
-            //     target_folder: 'path/relative/to/content/folder'
-            // }
-            {
-                page_id: '45eb121158b9489480ec000fd25c812b',
-                target_folder: '.'
-            }
-        ],
-        databases: [
-            // {
-            //     database_id: '<database_id>',
-            //     target_folder: 'path/relative/to/content/folder'
-            // }
-            {
-                database_id: 'b7b1816c05ec464391c8c111fa242985',
-                target_folder: '.'
-            }
-        ],
+        page_url: 'https://www.notion.so/1bbbcd193fdc473a81b953fdfc799602?pvs=4',
     },
     formatter: {
         equation: {

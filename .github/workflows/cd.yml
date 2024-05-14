@@ -83,7 +83,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: public
+          name: devdocs
           path: ./public
 
   # deploy:
@@ -105,8 +105,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: public
-          path: ./public
+          name: devdocs
+          path: ./devdocs
+
+      - name: Zip artifact
+        run: zip -r devdocs.zip devdocs
 
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
@@ -116,5 +119,5 @@ jobs:
           aws-region: us-east-1
       - name: Sync files to S3 bucket
         run: |
-          aws s3 sync public s3://${{ secrets.S3_DESKTOP_ARTIFACT_BUCKET }}/devdocs --delete
-          
+          aws s3 sync devdocs.zip s3://${{ secrets.S3_DESKTOP_ARTIFACT_BUCKET }}
+

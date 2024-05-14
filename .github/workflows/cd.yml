@@ -119,5 +119,5 @@ jobs:
           aws-region: us-east-1
       - name: Sync files to S3 bucket
         run: |
-          aws s3 sync devdocs.zip s3://${{ secrets.S3_DESKTOP_ARTIFACT_BUCKET }}
+          aws s3 cp devdocs.zip s3://${{ secrets.S3_DESKTOP_ARTIFACT_BUCKET }}
 

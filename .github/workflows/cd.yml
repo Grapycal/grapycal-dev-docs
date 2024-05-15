@@ -108,8 +108,11 @@ jobs:
           name: devdocs
           path: ./devdocs
 
+      - name: Ls
+        run: ls devdocs
+
       - name: Zip artifact
-        run: zip -r devdocs.zip devdocs/*
+        run: zip -r devdocs.zip devdocs/devdocs/*
 
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1

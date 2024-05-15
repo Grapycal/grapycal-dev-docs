@@ -22,7 +22,7 @@ const versions = getDirectories('content');
 
 
 //const baseURLRoot = 'http://localhost:1313';
-const baseURLRoot = 'https://devdocs.grapycal.com';
+const baseURLRoot = 'https://resource.grapycal.com/devdocs';
 
 const oldConfig = readFileSync('hugo.toml', 'utf8');
 

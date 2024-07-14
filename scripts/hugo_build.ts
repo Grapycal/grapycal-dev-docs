@@ -22,7 +22,7 @@ const versions = getDirectories('content');
 
 
 //const baseURLRoot = 'http://localhost:1313';
-const baseURLRoot = 'https://docs.grapycal.com';
+const baseURLRoot = 'https://resource.grapycal.com/devdocs';
 
 const oldConfig = readFileSync('hugo.toml', 'utf8');
 
@@ -34,23 +34,29 @@ versions.forEach((version) => {
   execSync(`hugo`,{stdio: 'inherit'});
 });
 
-// build the latest version to latest
-// sort the versions 'v{a}.{b}.{c}' and get the latest
-const data = versions.map((v) => {
-    const [a, b, c] = v.split('.').map((x) => parseInt(x));
-    return { a, b, c, v };
-    }).sort((a, b) => {
-        if (a.a !== b.a) return a.a - b.a;
-        if (a.b !== b.b) return a.b - b.b;
-        return a.c - b.c;
-    }
-);
-const latestVersion = data[data.length - 1].v;
-console.log(`Building version latest (${latestVersion})`);
-const hugoToml = `baseURL = "${baseURLRoot}/latest"\ncontentDir = "content/${latestVersion}"\npublishDir = "public/latest"\n`+oldConfig;
-require('fs').writeFileSync('hugo.toml', hugoToml);
-execSync(`hugo`);
- 
+if (versions.length > 0) {
+  // build the latest version to latest
+  // sort the versions 'v{a}.{b}.{c}' and get the latest
+  const data = versions.map((v) => {
+      try{
+        const [a, b, c] = v.split('.').map((x) => parseInt(x));
+        return { a, b, c, v };
+      } catch(e) {
+        return { a: 0, b: 0, c: 0, v };
+      }
+      }).sort((a, b) => {
+          if (a.a !== b.a) return a.a - b.a;
+          if (a.b !== b.b) return a.b - b.b;
+          return a.c - b.c;
+      }
+  );
+  const latestVersion = data[data.length - 1].v;
+  console.log(`Building version latest (${latestVersion})`);
+  const hugoToml = `baseURL = "${baseURLRoot}/latest"\ncontentDir = "content/${latestVersion}"\npublishDir = "public/latest"\n`+oldConfig;
+  require('fs').writeFileSync('hugo.toml', hugoToml);
+  execSync(`hugo`);
+}
+
 // Restore the original hugo.toml
 require('fs').writeFileSync('hugo.toml', oldConfig);
 

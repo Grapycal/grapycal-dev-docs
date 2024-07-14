@@ -34,7 +34,10 @@ export function getFileName(title: string, page_id: string, extension: string='m
   if(extension !== '' && extension[0] !== '.') {
     extension = '.' + extension
   }
+  // replace all invalid characters
+  title = title.replace(/[^a-zA-Z0-9 ]/g, "");
+
   return title.replaceAll(" ", "-").replace(/--+/g, "-") +
   "-" +
-  page_id.replaceAll("-", "") + extension;
+  page_id.replaceAll("-", "").slice(0, 6) + extension;
 }
